@@ -8,7 +8,6 @@ def bat_gen():
         file.write("@echo off\n")
         file.write("set \"RESOURCE_FILE=creds.txt\"\n")
         file.write(f"set \"PYTHON_PATH={python_path}\"\n")
-        print(python_path)
         file.write(f"\"%PYTHON_PATH%\" autologin.py \"%RESOURCE_FILE%\"\n")
         file.write("exit")
         file.close()
