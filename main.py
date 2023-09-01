@@ -7,14 +7,17 @@ def bat_gen():
     with open("autologin.bat", "w") as file:
         file.write("@echo off\n")
         file.write("set \"RESOURCE_FILE=creds.txt\"\n")
-        file.write(f"set \"PYTHON_PATH={python_path}\n")
-        file.write(f"%PYTHON_PATH% autologin.py %RESOURCE_FILE%\n")
+        file.write(f"set \"PYTHON_PATH={python_path}\"\n")
+        print(python_path)
+        file.write(f"\"%PYTHON_PATH%\" autologin.py \"%RESOURCE_FILE%\"\n")
         file.write("exit")
         file.close()
+        
 # Getting the batch file path
 script_path = os.path.abspath(argv[0])
 script_dir = os.path.dirname(script_path)
 script_path = os.path.join(script_dir, "autologin.bat")
+
 python_path = executable
 
 # Getting startup folder path
@@ -25,8 +28,8 @@ startup_folder = os.path.join(user_dir, "AppData", "Roaming", "Microsoft", "Wind
 if not os.path.exists(startup_folder):
     os.makedirs(startup_folder)
 
-
-def is_logged():  # Checks if the user has entered the credentials
+# Checks if the user has entered the credentials
+def is_logged():  
     with open("creds.txt", 'r') as file:
         USERNAME = file.readline().strip()
         if USERNAME == "f20xxxxxx":
